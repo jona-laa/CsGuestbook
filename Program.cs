@@ -1,4 +1,5 @@
 ﻿using System;
+using static Menu;
 
 namespace Guestbook
 {
@@ -6,7 +7,15 @@ namespace Guestbook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
+
+            MenuChoice();
+
+            while(!ValidateChoice()) {
+                MenuChoice();
+            }
+
+            System.Console.WriteLine("Valid input!");
         }
     }
 }
