@@ -1,4 +1,4 @@
-public class Message : Interfaces.IMessage
+public class Message
 {
     // Properties 
     public string Name { get; set; }

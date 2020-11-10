@@ -29,9 +29,9 @@ class Program
                     break;
 
                 case ConsoleKey.X:
+                    Clear();
                     WriteLine("\nQuitting..."); 
                     Thread.Sleep(1000);
-                    Environment.Exit(0);
                     break;
             }
         } while (pressedKey.Key != ConsoleKey.X);
