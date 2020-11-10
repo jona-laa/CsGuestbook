@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using static System.Console;
 
 class Program
@@ -7,7 +8,7 @@ class Program
 
     static void Main(string[] args)
     {
-        do{
+        do {
             MenuChoice();
 
             // Get Messages
@@ -28,7 +29,8 @@ class Program
                     break;
 
                 case ConsoleKey.X:
-                    System.Console.WriteLine("\nQuitting...");
+                    WriteLine("\nQuitting..."); 
+                    Thread.Sleep(1000);
                     Environment.Exit(0);
                     break;
             }
@@ -43,5 +45,5 @@ class Program
         WriteLine("1. Write Message");
         WriteLine("2. Delete Message");
         WriteLine("\nX. Quit\n");
-    }
+    }    
 }
