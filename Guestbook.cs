@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using static Utilities;
+using System.Threading;
+using static Program;
+
 
 
 
@@ -15,12 +18,20 @@ public class Guestbook
     {
         string json;
 
+        // Read JSON File
         json = File.ReadAllText("guestbook.json");
         
+        // Deserialize into List and Print to Console
         _messages = JsonSerializer.Deserialize<List<Message>>(json);
-        
-        foreach (var message in _messages){
-            WriteLine("[{0}] {1, -15} {2}", _messages.IndexOf(message), message.Name, message.Msg);
+
+        if (_messages.Count > 0)
+        {
+            foreach (var message in _messages){
+                WriteLine("[{0}] {1, -15} {2}", _messages.IndexOf(message), message.Name, message.Msg);
+            }
+        }
+        else {
+            WriteLine("Guestbook is Empty");
         }
     }
 
@@ -33,6 +44,7 @@ public class Guestbook
 
         Clear();
 
+        // Ask for name and message input until valid
         do {
             Clear();
             WriteLine("Name");
@@ -46,13 +58,18 @@ public class Guestbook
             message = ReadLine();
         } while (!IsValidString(message));
         
+        // Create instance of Message
         _messages.Add(new Message() 
         { 
             Name = name, 
             Msg = message 
         });
 
-        JsonSerializeMessages(_messages);
+        // Serializes and Writes to file
+        SerializeAndWrite(_messages);
+
+        WriteLine("\nMessage Created");
+        Thread.Sleep(1000); 
     }
 
 
@@ -62,19 +79,36 @@ public class Guestbook
         char key;
         int messageCount = _messages.Count;
 
+        // Ask for input until valid
         if (messageCount > 0)
         {
             do
             {
                 Clear();
+
                 WriteLine("Delete Message By Index");
-                WriteLine($"\nProvide a number between 0 - {messageCount-1}\n");
+                WriteLine($"Provide a number between 0 - {messageCount-1}\n");
+
                 GetMessages();
+
+                WriteLine("\nC. Cancel\n");
+
                 key = ReadKey().KeyChar;
             } while(!IsValidInt(key, messageCount));
 
-            _messages.RemoveAt(Int16.Parse(key.ToString()));
-            JsonSerializeMessages(_messages); 
+            // If input key was C, Cancel, else delete chosen index
+            if(key.ToString().ToUpper() == "C")
+            {                
+                MenuChoice();
+            } 
+            else {
+                _messages.RemoveAt(Int16.Parse(key.ToString()));
+
+                SerializeAndWrite(_messages);
+
+                WriteLine("\n\nMessage Deleted");
+                Thread.Sleep(1000); 
+            }
         }
     }
 }

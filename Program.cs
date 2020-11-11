@@ -10,40 +10,44 @@ class Program
     {
         do {
             MenuChoice();
-
-            // Get Messages
-            Guestbook.GetMessages();
-            
-            // Ask for user input
-            pressedKey = ReadKey();
-
-            // Run cases depending on input
-            switch(pressedKey.Key)
-            {
-                case ConsoleKey.D1:
-                    Guestbook.CreateMessage();
-                    break;
-
-                case ConsoleKey.D2:
-                    Guestbook.DeleteMessage();
-                    break;
-
-                case ConsoleKey.X:
-                    Clear();
-                    WriteLine("\nQuitting..."); 
-                    Thread.Sleep(1000);
-                    break;
-            }
-        } while (pressedKey.Key != ConsoleKey.X);
+        } while (pressedKey.Key != ConsoleKey.Q);
     }
 
     public static void MenuChoice()
     {
         Clear();
 
+        // Print Menu Choices
         WriteLine("C O N S O L E  G U E S T B O O K\n");
+        WriteLine("# MENU");
         WriteLine("1. Write Message");
         WriteLine("2. Delete Message");
-        WriteLine("\nX. Quit\n");
+        WriteLine("Q. Quit\n");
+
+        // Get Messages
+        WriteLine("# MESSAGES");
+        Guestbook.GetMessages();
+        
+        // Ask for user input
+        pressedKey = ReadKey();
+
+        // Run cases depending on input
+        switch(pressedKey.Key)
+        {
+            case ConsoleKey.D1:
+                Guestbook.CreateMessage();
+                break;
+
+            case ConsoleKey.D2:
+                Guestbook.DeleteMessage();
+                break;
+
+            case ConsoleKey.Q:
+                Clear();
+                WriteLine("\nQuitting..."); 
+                Thread.Sleep(1000);
+                Environment.Exit(0);
+                break;
+        }
     }    
 }
