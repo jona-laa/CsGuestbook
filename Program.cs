@@ -46,7 +46,7 @@ class Program
 
             case ConsoleKey.Q:
                 Clear();
-                WriteLine("\nQuitting..."); 
+                WriteLine("\nQuitting... \nHave a nice day!"); 
                 Thread.Sleep(1000);
                 Environment.Exit(0);
                 break;
