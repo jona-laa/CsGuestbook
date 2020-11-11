@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class Utilities
 {
+    /// Makes sure Message strings are not empty
     public static bool IsValidString(string str)
     {
         if (str == null | str == "")
@@ -15,8 +16,8 @@ public class Utilities
     }
 
 
-
-    public static void JsonSerializeMessages(List<Message> _messages)
+    /// Serializes and Writes Messages to json-file 
+    public static void SerializeAndWrite(List<Message> _messages)
     {
         string json;
 
@@ -26,6 +27,7 @@ public class Utilities
 
 
 
+    // Checks for valid integer, or C, when in Delete menu
     public static bool IsValidInt(char key, int messageCount)
     {
         Int16 inputNumber;
@@ -39,6 +41,10 @@ public class Utilities
             {
                 return false;
             }
+        }
+        else if (key.ToString().ToUpper() == "C")
+        {
+            return true;
         }
         else {
             return false;
