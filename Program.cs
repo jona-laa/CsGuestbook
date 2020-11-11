@@ -1,4 +1,6 @@
-﻿using System;
+﻿/* Written by Jonathan Laasonen */
+
+using System;
 using System.Threading;
 using static System.Console;
 
