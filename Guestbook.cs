@@ -12,7 +12,12 @@ using static Program;
 
 public class Guestbook
 {
-    public static List<Message> _messages = new List<Message>();
+    public static List<Message> Messages { get; set; }
+
+    public Guestbook()
+    {
+        Messages = new List<Message>();
+    }
 
     public static void GetMessages()
     {
@@ -22,12 +27,12 @@ public class Guestbook
         json = File.ReadAllText("guestbook.json");
         
         // Deserialize into List and Print to Console
-        _messages = JsonSerializer.Deserialize<List<Message>>(json);
+        Messages = JsonSerializer.Deserialize<List<Message>>(json);
 
-        if (_messages.Count > 0)
+        if (Messages.Count > 0)
         {
-            foreach (var message in _messages){
-                WriteLine("[{0}] {1, -15} {2}", _messages.IndexOf(message), message.Name, message.Msg);
+            foreach (var message in Messages){
+                WriteLine("[{0}] {1, -15} {2}", Messages.IndexOf(message), message.Name, message.Msg);
             }
         }
         else {
@@ -59,14 +64,14 @@ public class Guestbook
         } while (!IsValidString(message));
         
         // Create instance of Message
-        _messages.Add(new Message() 
+        Messages.Add(new Message() 
         { 
             Name = name, 
             Msg = message 
         });
 
         // Serializes and Writes to file
-        SerializeAndWrite(_messages);
+        SerializeAndWrite(Messages);
 
         WriteLine("\nMessage Created");
         Thread.Sleep(1000); 
@@ -77,7 +82,7 @@ public class Guestbook
     public static void DeleteMessage()
     {
         char key;
-        int messageCount = _messages.Count;
+        int messageCount = Messages.Count;
 
         // Ask for input until valid
         if (messageCount > 0)
@@ -102,11 +107,11 @@ public class Guestbook
                 MenuChoice();
             } 
             else {
-                _messages.RemoveAt(Int16.Parse(key.ToString()));
+                Messages.RemoveAt(Int16.Parse(key.ToString()));
 
-                SerializeAndWrite(_messages);
+                SerializeAndWrite(Messages);
 
-                WriteLine("\n\nMessage Deleted");
+                WriteLine("\n\nDeleting message...");
                 Thread.Sleep(1000); 
             }
         }
