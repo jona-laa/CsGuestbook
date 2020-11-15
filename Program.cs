@@ -15,6 +15,11 @@ class Program
         } while (pressedKey.Key != ConsoleKey.Q);
     }
 
+
+
+    /// <summary>
+    /// Runs the application menu
+    /// </summary>
     public static void MenuChoice()
     {
         Clear();

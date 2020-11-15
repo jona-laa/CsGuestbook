@@ -7,41 +7,47 @@ using static Utilities;
 using System.Threading;
 using static Program;
 
-
-
-
 public class Guestbook
 {
-    public static List<Message> Messages { get; set; }
+    public static List<Message> Messages = new List<Message>();
 
-    public Guestbook()
-    {
-        Messages = new List<Message>();
-    }
-
+    /// <summary>
+    /// Gets all guestbook messages
+    /// </summary>
     public static void GetMessages()
     {
-        string json;
-
-        // Read JSON File
-        json = File.ReadAllText("guestbook.json");
-        
-        // Deserialize into List and Print to Console
-        Messages = JsonSerializer.Deserialize<List<Message>>(json);
-
-        if (Messages.Count > 0)
+        try
         {
-            foreach (var message in Messages){
-                WriteLine("[{0}] {1, -15} {2}", Messages.IndexOf(message), message.Name, message.Msg);
+            using(var sr = new StreamReader(@"guestbook.json"))
+            {
+                string json = sr.ReadToEnd();
+                
+                // Deserialize into List and Print to Console
+                Messages = JsonSerializer.Deserialize<List<Message>>(json);
+
+                if (Messages.Count > 0)
+                {
+                    foreach (var message in Messages){
+                        WriteLine("[{0}] {1, -15} {2}", Messages.IndexOf(message), message.Name, message.Msg);
+                    }
+                }
+                else {
+                    WriteLine("Guestbook is Empty");
+                }
             }
         }
-        else {
-            WriteLine("Guestbook is Empty");
+        catch
+        {
+            WriteLine("Could not get messages...");
         }
+        
     }
 
 
 
+    /// <summary>
+    /// Creates new guestbook message
+    /// </summary>
     public static void CreateMessage()
     {
         string name;
@@ -79,6 +85,9 @@ public class Guestbook
 
 
 
+    /// <summary>
+    /// Deletes guestbook message
+    /// </summary>
     public static void DeleteMessage()
     {
         char key;
