@@ -1,11 +1,14 @@
 using System;
+using static System.Console;
 using System.IO;
 using System.Text.Json;
 using System.Collections.Generic;
 
 public class Utilities
 {
+    /// <summary>
     /// Makes sure Message strings are not empty
+    /// </summary>
     public static bool IsValidString(string str)
     {
         return (string.IsNullOrEmpty(str) | String.IsNullOrWhiteSpace(str))  ? false : true;
@@ -13,18 +16,30 @@ public class Utilities
 
 
 
+    /// <summary>
     /// Serializes and Writes Messages to json-file 
+    /// </summary>
     public static void SerializeAndWrite(List<Message> _messages)
     {
-        string json;
-
-        json = JsonSerializer.Serialize(_messages);
-        File.WriteAllText("guestbook.json", json); 
+        try
+        {
+            using(var sr = new StreamWriter(@"guestbook.json"))
+            {
+                string json = JsonSerializer.Serialize(_messages);
+                sr.Write(json);
+            }
+        }
+        catch
+        {
+            WriteLine("Could not save message...");
+        }
     }
 
 
 
-    // Checks for valid integer, or C, when in Delete menu
+    /// <summary>
+    /// Checks for valid integer, or C, when in Delete menu
+    /// </summary>
     public static bool IsValidInt(char key, int messageCount)
     {
         Int16 inputNumber;
