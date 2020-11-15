@@ -8,7 +8,7 @@ public class Utilities
     /// Makes sure Message strings are not empty
     public static bool IsValidString(string str)
     {
-        return (str == null | str == "")  ? false : true;
+        return (string.IsNullOrEmpty(str) | String.IsNullOrWhiteSpace(str))  ? false : true;
     }
 
 
