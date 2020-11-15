@@ -8,12 +8,9 @@ public class Utilities
     /// Makes sure Message strings are not empty
     public static bool IsValidString(string str)
     {
-        if (str == null | str == "")
-        {
-            return false;
-        }
-        return true;
+        return (str == null | str == "")  ? false : true;
     }
+
 
 
     /// Serializes and Writes Messages to json-file 
@@ -33,14 +30,7 @@ public class Utilities
         Int16 inputNumber;
         if (Int16.TryParse(key.ToString(), out inputNumber))
         {
-            if (inputNumber >= 0 && inputNumber < messageCount)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (inputNumber >= 0 && inputNumber < messageCount) ? true : false;
         }
         else if (key.ToString().ToUpper() == "C")
         {
