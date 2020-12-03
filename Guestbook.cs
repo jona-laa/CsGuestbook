@@ -9,7 +9,7 @@ using static Program;
 
 public class Guestbook
 {
-    public static List<Message> Messages = new List<Message>();
+    static List<Message> Messages = new List<Message>();
 
     /// <summary>
     /// Gets all guestbook messages
@@ -18,7 +18,7 @@ public class Guestbook
     {
         try
         {
-            using(var sr = new StreamReader(@"guestbook.json"))
+            using(var sr = new StreamReader("guestbook.json"))
             {
                 string json = sr.ReadToEnd();
                 
@@ -68,12 +68,11 @@ public class Guestbook
             WriteLine("Message");
             message = ReadLine();
         } while (!IsValidString(message));
-        
+
         // Create instance of Message
-        Messages.Add(new Message() 
-        { 
-            Name = name, 
-            Msg = message 
+        Messages.Add(new Message {
+            Name = name,
+            Msg = message
         });
 
         // Serializes and Writes to file

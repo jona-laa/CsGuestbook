@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.Json;
 using System.Collections.Generic;
 
-public class Utilities
+static class Utilities
 {
     /// <summary>
     /// Makes sure Message strings are not empty

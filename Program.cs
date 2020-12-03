@@ -6,13 +6,15 @@ using static System.Console;
 
 class Program
 {
-    public static ConsoleKeyInfo pressedKey;
+    static ConsoleKeyInfo pressedKey;
 
     static void Main(string[] args)
     {
-        do {
+        ForegroundColor = ConsoleColor.DarkGreen;
+        
+        while(true) {
             MenuChoice();
-        } while (pressedKey.Key != ConsoleKey.Q);
+        };
     }
 
 
@@ -23,7 +25,6 @@ class Program
     public static void MenuChoice()
     {
         Clear();
-
         // Print Menu Choices
         WriteLine("C O N S O L E  G U E S T B O O K\n");
         WriteLine("# MENU");
@@ -53,7 +54,11 @@ class Program
                 Clear();
                 WriteLine("\nQuitting... \nHave a nice day!"); 
                 Thread.Sleep(1000);
+                Console.ResetColor();
                 Environment.Exit(0);
+                break;
+
+            default:
                 break;
         }
     }    
